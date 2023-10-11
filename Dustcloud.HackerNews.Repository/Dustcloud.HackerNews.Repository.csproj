@@ -12,4 +12,8 @@
     <PackageReference Include="UnixTimeConverter" Version="1.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dustcloud.HackerNews.Common\Dustcloud.HackerNews.Common.csproj" />
+  </ItemGroup>
+
 </Project>

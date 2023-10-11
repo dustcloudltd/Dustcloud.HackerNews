@@ -1,11 +1,13 @@
 using System.Text.Json.Serialization;
 using JsonNetConverters.UnixTime;
-using Newtonsoft.Json.Converters;
 
-namespace Dustcloud.HackerNews.Repository.Model;
+namespace Dustcloud.HackerNews.Common.Model;
 
 public class NewsItem
 {
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
+
     [JsonPropertyName("title")]
     public string Title { get; set; }
 
@@ -16,8 +18,8 @@ public class NewsItem
     public string PostedBy { get; set; }
 
     [JsonPropertyName("time")]
-    [JsonConverter(typeof(UnixTimeConverter))]
-    public DateTime Time { get; set; }
+    //[JsonConverter(typeof(UnixTimeConverter))]
+    public int Time { get; set; }
 
     [JsonPropertyName("score")]
     public int Score { get; set; }

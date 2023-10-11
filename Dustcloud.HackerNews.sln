@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33417.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dustcloud.HackerNews", "Dustcloud.HackerNews\Dustcloud.HackerNews.csproj", "{CF5AF600-6138-4E6C-95B2-300766453C02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dustcloud.HackerNews", "Dustcloud.HackerNews\Dustcloud.HackerNews.csproj", "{CF5AF600-6138-4E6C-95B2-300766453C02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dustcloud.HackerNews.Repository", "Dustcloud.HackerNews.Repository\Dustcloud.HackerNews.Repository.csproj", "{B50F884C-1E94-493A-BB68-DF66DC997C26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dustcloud.HackerNews.Repository", "Dustcloud.HackerNews.Repository\Dustcloud.HackerNews.Repository.csproj", "{B50F884C-1E94-493A-BB68-DF66DC997C26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dustcloud.HackerNews.Caching", "Dustcloud.HackerNews.Caching\Dustcloud.HackerNews.Caching.csproj", "{0F19CEAA-ED26-4B15-AE48-AF8BCD27B0C6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dustcloud.HackerNews.Common", "Dustcloud.HackerNews.Common\Dustcloud.HackerNews.Common.csproj", "{67113852-1A2D-4FB1-92A2-BEB5BF93AB7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dustcloud.HackerNews.Common", "Dustcloud.HackerNews.Common\Dustcloud.HackerNews.Common.csproj", "{67113852-1A2D-4FB1-92A2-BEB5BF93AB7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{B50F884C-1E94-493A-BB68-DF66DC997C26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B50F884C-1E94-493A-BB68-DF66DC997C26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B50F884C-1E94-493A-BB68-DF66DC997C26}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F19CEAA-ED26-4B15-AE48-AF8BCD27B0C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F19CEAA-ED26-4B15-AE48-AF8BCD27B0C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F19CEAA-ED26-4B15-AE48-AF8BCD27B0C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F19CEAA-ED26-4B15-AE48-AF8BCD27B0C6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{67113852-1A2D-4FB1-92A2-BEB5BF93AB7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{67113852-1A2D-4FB1-92A2-BEB5BF93AB7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67113852-1A2D-4FB1-92A2-BEB5BF93AB7D}.Release|Any CPU.ActiveCfg = Release|Any CPU

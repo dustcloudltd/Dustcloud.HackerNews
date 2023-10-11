@@ -1,4 +1,3 @@
-using Dustcloud.HackerNews.Middleware;
 using Dustcloud.HackerNews.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHackerNewsRepository();
+builder.Services.AddMemoryCache();
+
 
 var app = builder.Build();
 
