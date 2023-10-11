@@ -13,7 +13,6 @@ public class HackerNewsController : ControllerBase
     private readonly IMemoryCache _memoryCache;
     private readonly ILogger<HackerNewsController> _logger;
     private const string NewsStoryCacheKey = "NewsStory";
-    private const string UpdatedCacheKey = "Updated";
 
     public HackerNewsController(IHackerNewsService hackerNewsService,
         IMemoryCache memoryCache,
@@ -29,36 +28,15 @@ public class HackerNewsController : ControllerBase
     {
         try
         {
-            if (_memoryCache.TryGetValue(NewsStoryCacheKey, out IEnumerable<NewsItem> items))
-            {
-                var topItems = items.OrderByDescending(s => s.Score).Take(top);
-
-                var isUpdatedCached = _memoryCache.TryGetValue(UpdatedCacheKey, out IEnumerable<NewsItem> updatedItems);
-                if (!isUpdatedCached)
-                {
-                    await SetUpdatedItemsFromCacheAsync();
-                }
-                else
-                {
-                    var isUpdatedCacheAndApiSame = await CompareCacheWithApiAsync(updatedItems.ToList());
-                    if (isUpdatedCacheAndApiSame)
-                    {
-                        return Ok(topItems);
-                    }
-                    else
-                    {
-                        await SetUpdatedItemsFromCacheAsync();
-                    }
-                }
-
-            }
-            else
+            if (!_memoryCache.TryGetValue(NewsStoryCacheKey, out List<NewsItem> items) ||
+                !await CompareCacheWithApiAsync(items.OrderByDescending(s => s.Score).Take(top)))
             {
                 await SetTopItemsCacheAsync();
                 _memoryCache.TryGetValue(NewsStoryCacheKey, out items);
             }
-
-            return Ok(items.OrderByDescending(s => s.Score).Take(top));
+            
+            var topItems = items.OrderByDescending(s => s.Score).Take(top);
+            return Ok(topItems);
         }
         catch (Exception ex)
         {
@@ -67,11 +45,12 @@ public class HackerNewsController : ControllerBase
     }
 
     //True if they're the same
-    private async Task<bool> CompareCacheWithApiAsync(IEnumerable<NewsItem> cachedUpdatedItems)
+    private async Task<bool> CompareCacheWithApiAsync(IEnumerable<NewsItem> cachedItems)
     {
-        var updatedIds = (await _hackerNewsService.GetUpdatedStoriesAsync()).ToList();
-        var cachedUpdatedIds = cachedUpdatedItems.Select(s => s.Id).ToList();
-        return updatedIds.Count() == cachedUpdatedIds.Count() && !updatedIds.Except(cachedUpdatedIds).Any();
+        var topStoriesIds = (await _hackerNewsService.GetAllTopStoriesAsync()).ToList();
+        var cachedItemIds = cachedItems.Select(s => s.Id).ToList();
+        return topStoriesIds.FindAll(s => cachedItemIds.Contains(s)).Count == cachedItemIds.Count;
+
     }
 
 
@@ -83,18 +62,10 @@ public class HackerNewsController : ControllerBase
         // This is the long-un
         var storiesWithBodies = await _hackerNewsService.GetNewsItemsByIds(allStories);
 
-        SetCache(NewsStoryCacheKey, storiesWithBodies);
+        SetCache(NewsStoryCacheKey, storiesWithBodies.ToList());
 
     }
 
-    private async Task SetUpdatedItemsFromCacheAsync()
-    {
-        _logger.Log(LogLevel.Information, "Setting updated items cache");
-        var updatedIds = await _hackerNewsService.GetUpdatedStoriesAsync();
-        var updatedItems = await _hackerNewsService.GetNewsItemsByIds(updatedIds);
-
-        SetCache(UpdatedCacheKey, updatedItems, 60);
-    }
 
     private void SetCache(string cacheKey, object body, int slidingExpiration = 300)
     {
