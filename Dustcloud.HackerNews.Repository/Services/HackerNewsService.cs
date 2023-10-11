@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Dustcloud.HackerNews.Common.Model;
+﻿using Dustcloud.HackerNews.Common.Model;
 using Newtonsoft.Json;
 
 namespace Dustcloud.HackerNews.Repository.Services ;
@@ -23,21 +22,20 @@ internal class HackerNewsService : IHackerNewsService
         var stories = JsonConvert.DeserializeObject<IEnumerable<int>>(response);
 
         return stories;
-
     }
 
 
-    private async Task<NewsItem> GetNewsItemByIdAsync(int id)
+    private async Task<HackerNewsItem> GetNewsItemByIdAsync(int id)
     {
         var response = await _hackerNewsClient.GetStringAsync(string.Format(Item, id));
-        var item = JsonConvert.DeserializeObject<NewsItem>(response);
+        var item = JsonConvert.DeserializeObject<HackerNewsItem>(response);
 
         return item;
     }
 
-    public async Task<IEnumerable<NewsItem>> GetNewsItemsByIds(IEnumerable<int> ids)
+    public async Task<IEnumerable<HackerNewsItem>> GetNewsItemsByIds(IEnumerable<int> ids)
     {
-        var newsItems = new List<NewsItem>();
+        var newsItems = new List<HackerNewsItem>();
 
         foreach (var id in ids)
         {
@@ -47,10 +45,4 @@ internal class HackerNewsService : IHackerNewsService
 
         return newsItems;
     }
-}
-
-public interface IHackerNewsService
-{
-    Task<IEnumerable<int>> GetAllTopStoriesAsync();
-    Task<IEnumerable<NewsItem>> GetNewsItemsByIds(IEnumerable<int> ids);
 }

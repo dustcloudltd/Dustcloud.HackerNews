@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dustcloud.HackerNews.Reposi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dustcloud.HackerNews.Common", "Dustcloud.HackerNews.Common\Dustcloud.HackerNews.Common.csproj", "{67113852-1A2D-4FB1-92A2-BEB5BF93AB7D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A36A0939-D397-40EB-A33D-EC3FDD278BDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dustcloud.HackerNews.Tests", "Dustcloud.HackerNews.Tests\Dustcloud.HackerNews.Tests.csproj", "{6D3A0A6B-754E-4E11-AA97-E74BEB2A0908}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,9 +31,16 @@ Global
 		{67113852-1A2D-4FB1-92A2-BEB5BF93AB7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67113852-1A2D-4FB1-92A2-BEB5BF93AB7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67113852-1A2D-4FB1-92A2-BEB5BF93AB7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D3A0A6B-754E-4E11-AA97-E74BEB2A0908}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D3A0A6B-754E-4E11-AA97-E74BEB2A0908}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D3A0A6B-754E-4E11-AA97-E74BEB2A0908}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D3A0A6B-754E-4E11-AA97-E74BEB2A0908}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6D3A0A6B-754E-4E11-AA97-E74BEB2A0908} = {A36A0939-D397-40EB-A33D-EC3FDD278BDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {79816647-47C7-4490-AAC4-44503D11DA5E}

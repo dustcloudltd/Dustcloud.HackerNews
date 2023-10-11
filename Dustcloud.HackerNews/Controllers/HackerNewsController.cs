@@ -1,3 +1,4 @@
+using Dustcloud.HackerNews.Common.Extensions;
 using Dustcloud.HackerNews.Common.Model;
 using Dustcloud.HackerNews.Repository.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,7 @@ public class HackerNewsController : ControllerBase
 {
     private readonly IHackerNewsService _hackerNewsService;
     private readonly IMemoryCache _memoryCache;
-    private readonly ILogger<HackerNewsController> _logger;
+    private readonly ILogger _logger;
     private const string NewsStoryCacheKey = "NewsStory";
 
     public HackerNewsController(IHackerNewsService hackerNewsService,
@@ -28,7 +29,7 @@ public class HackerNewsController : ControllerBase
     {
         try
         {
-            if (!_memoryCache.TryGetValue(NewsStoryCacheKey, out List<NewsItem> items) ||
+            if (!_memoryCache.TryGetValue(NewsStoryCacheKey, out List<DustcloudNewsItem> items) ||
                 !await CompareCacheWithApiAsync(items.OrderByDescending(s => s.Score).Take(top)))
             {
                 await SetTopItemsCacheAsync();
@@ -45,12 +46,11 @@ public class HackerNewsController : ControllerBase
     }
 
     //True if they're the same
-    private async Task<bool> CompareCacheWithApiAsync(IEnumerable<NewsItem> cachedItems)
+    private async Task<bool> CompareCacheWithApiAsync(IEnumerable<DustcloudNewsItem> cachedItems)
     {
         var topStoriesIds = (await _hackerNewsService.GetAllTopStoriesAsync()).ToList();
         var cachedItemIds = cachedItems.Select(s => s.Id).ToList();
         return topStoriesIds.FindAll(s => cachedItemIds.Contains(s)).Count == cachedItemIds.Count;
-
     }
 
 
@@ -60,12 +60,12 @@ public class HackerNewsController : ControllerBase
         var allStories = await _hackerNewsService.GetAllTopStoriesAsync();
         
         // This is the long-un
-        var storiesWithBodies = await _hackerNewsService.GetNewsItemsByIds(allStories);
-
-        SetCache(NewsStoryCacheKey, storiesWithBodies.ToList());
-
+        var hackerNewsStories = await _hackerNewsService.GetNewsItemsByIds(allStories);
+        var dustcloudStories = hackerNewsStories.MapToDustcloudNewsItems();
+        SetCache(NewsStoryCacheKey, dustcloudStories);
     }
 
+   
 
     private void SetCache(string cacheKey, object body, int slidingExpiration = 300)
     {
