@@ -21,7 +21,7 @@ public class HackerNewsControllerTests
             .Returns(true);
 
         var service = new Mock<IHackerNewsService>();
-        service.Setup(s => s.GetAllTopStoriesAsync())
+        service.Setup(s => s.GetAllTopStoryIdsAsync())
             .ReturnsAsync(new []{1, 2, 3, 4,5});
 
         var controller = new HackerNewsControllerBuilder()
@@ -60,7 +60,7 @@ public class HackerNewsControllerTests
             .Returns(false);
         
         var service = new Mock<IHackerNewsService>();
-        service.Setup(s => s.GetAllTopStoriesAsync())
+        service.Setup(s => s.GetAllTopStoryIdsAsync())
             .ReturnsAsync(new[] { 1, 2, 3, 4, 5 });
         service.Setup(s => s.GetNewsItemsByIds(It.IsAny<IEnumerable<int>>()))
             .ReturnsAsync(GetHackerNewsData());
@@ -88,7 +88,7 @@ public class HackerNewsControllerTests
         memoryCacheMock.Setup(s => s.TryGetValue("NewsStory", out itemsList))
             .Returns(false);
         var service = new Mock<IHackerNewsService>();
-        service.Setup(s => s.GetAllTopStoriesAsync())
+        service.Setup(s => s.GetAllTopStoryIdsAsync())
             .Throws(new Exception("Cache buggy"));
 
         var loggerMock = new Mock<ILogger<HackerNewsController>>();
@@ -100,7 +100,11 @@ public class HackerNewsControllerTests
 
         var result = controller.GetHackerNews(5).Result as BadRequestObjectResult;
         Assert.AreEqual(400, result.StatusCode);
-        loggerMock.Verify(s => s.LogError(It.IsAny<Exception>(), "Cache buggy"));
+        loggerMock.Verify(s => s.Log(LogLevel.Error,
+            It.IsAny<EventId>(),
+            It.Is<It.IsAnyType>((@object, @type) => @type.Name == "FormattedLogValues"),
+            It.IsAny<Exception>(),
+            It.IsAny<Func<It.IsAnyType, Exception, string>>()));
     }
 
     private List<DustcloudNewsItem> GetDustcloudData()

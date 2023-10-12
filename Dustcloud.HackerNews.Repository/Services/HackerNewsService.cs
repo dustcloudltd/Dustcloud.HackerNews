@@ -14,12 +14,12 @@ internal class HackerNewsService : IHackerNewsService
         _hackerNewsClient = client;
     }
 
-    public async Task<IEnumerable<int>> GetAllTopStoriesAsync()
+    public async Task<IEnumerable<int>> GetAllTopStoryIdsAsync()
     {
         var response = await _hackerNewsClient.GetStringAsync(TopStories);
-        var stories = JsonConvert.DeserializeObject<IEnumerable<int>>(response);
+        var storyIds = JsonConvert.DeserializeObject<IEnumerable<int>>(response);
 
-        return stories;
+        return storyIds;
     }
 
 

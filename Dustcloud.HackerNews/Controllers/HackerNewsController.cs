@@ -29,7 +29,7 @@ public class HackerNewsController : ControllerBase
     {
         if (top > 500)
         {
-            return BadRequest("Request denied. Please use a lower number than 500.")
+            return BadRequest("Request denied. Please use a lower number than 500.");
         }
 
         try
@@ -56,7 +56,7 @@ public class HackerNewsController : ControllerBase
     //True if they're the same
     private async Task<bool> CompareCacheWithApiAsync(IEnumerable<DustcloudNewsItem> cachedItems)
     {
-        var topStoriesIds = (await _hackerNewsService.GetAllTopStoriesAsync()).ToList();
+        var topStoriesIds = (await _hackerNewsService.GetAllTopStoryIdsAsync()).ToList();
         var cachedItemIds = cachedItems.Select(s => s.Id).ToList();
         return topStoriesIds.FindAll(s => cachedItemIds.Contains(s)).Count == cachedItemIds.Count;
     }
@@ -65,7 +65,7 @@ public class HackerNewsController : ControllerBase
     private async Task SetTopItemsCacheAsync()
     {
         _logger.Log(LogLevel.Information, "Setting top items cache");
-        var allStories = await _hackerNewsService.GetAllTopStoriesAsync();
+        var allStories = await _hackerNewsService.GetAllTopStoryIdsAsync();
         
         // This is the long-un
         var hackerNewsStories = await _hackerNewsService.GetNewsItemsByIds(allStories);
