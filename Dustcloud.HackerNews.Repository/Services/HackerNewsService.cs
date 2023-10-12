@@ -5,15 +5,13 @@ namespace Dustcloud.HackerNews.Repository.Services ;
 
 internal class HackerNewsService : IHackerNewsService
 {
-    private const string HackerNewsUri = "https://hacker-news.firebaseio.com/v0/";
     private const string TopStories = "topstories.json";
     private const string Item = "item/{0}.json";
 
-    private readonly HttpClient _hackerNewsClient;
-    public HackerNewsService()
+    private readonly IHttpClientProxy _hackerNewsClient;
+    public HackerNewsService(IHttpClientProxy client)
     {
-        _hackerNewsClient = new HttpClient();
-        _hackerNewsClient.BaseAddress = new Uri(HackerNewsUri);
+        _hackerNewsClient = client;
     }
 
     public async Task<IEnumerable<int>> GetAllTopStoriesAsync()

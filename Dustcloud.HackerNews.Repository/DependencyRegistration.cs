@@ -6,6 +6,7 @@ public static class DependencyRegistration
 {
     public static IServiceCollection AddHackerNewsRepository(this IServiceCollection services)
     {
-        return services.AddSingleton<IHackerNewsService, HackerNewsService>();
+        return services.AddSingleton<IHackerNewsService, HackerNewsService>()
+            .AddSingleton<IHttpClientProxy, HackerNewsHttpClientProxy>();
     }
 }

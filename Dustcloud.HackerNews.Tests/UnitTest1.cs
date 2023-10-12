@@ -10,7 +10,7 @@ namespace Dustcloud.HackerNews.Tests;
 public class HackerNewsControllerTests
 {
     [TestMethod]
-    public async void TestMethod1()
+    public  void TestMethod1()
     {
         var memoryCacheMock = new Mock<IMemoryCache>();
         var service = new Mock<IHackerNewsService>();
@@ -20,7 +20,7 @@ public class HackerNewsControllerTests
             .With(service.Object)
             .Build();
 
-        var b = await controller.GetHackerNews(5);
+        var b = controller.GetHackerNews(5).Result;
 
 
     }
