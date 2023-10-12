@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dustcloud.HackerNews.Common\Dustcloud.HackerNews.Common.csproj" />
     <ProjectReference Include="..\Dustcloud.HackerNews.Repository\Dustcloud.HackerNews.Repository.csproj" />
   </ItemGroup>
 

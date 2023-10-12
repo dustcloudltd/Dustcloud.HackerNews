@@ -1,3 +1,4 @@
+using Dustcloud.HackerNews.Middleware;
 using Dustcloud.HackerNews.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +19,6 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
-    //app.UseMiddleware<HackerNewsMiddleware>();
 }
 
 app.UseHttpsRedirection();
@@ -27,6 +27,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//app.UseMiddleware<HackerNewsMiddleware>();
+app.UseMiddleware<HackerNewsMiddleware>();
 
 app.Run();

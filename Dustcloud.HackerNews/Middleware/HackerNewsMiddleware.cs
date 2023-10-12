@@ -1,10 +1,16 @@
 ﻿namespace Dustcloud.HackerNews.Middleware ;
 
-public class HackerNewsMiddleware : IMiddleware
+public class HackerNewsMiddleware
 {
-    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
-    {
+    private readonly RequestDelegate _next;
 
-        await next(context);
+    public HackerNewsMiddleware(RequestDelegate next)
+    {
+        _next = next;
+    }
+    public async Task InvokeAsync(HttpContext context)
+    {
+        //if (context.Request.Headers) -- check for authentication token?
+        await _next(context);
     }
 }

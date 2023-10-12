@@ -27,20 +27,28 @@ public class HackerNewsController : ControllerBase
     [HttpGet(Name = "GetHackerNews")]
     public async Task<IActionResult> GetHackerNews(int top)
     {
+        if (top > 500)
+        {
+            return BadRequest("Request denied. Please use a lower number than 500.")
+        }
+
         try
         {
             if (!_memoryCache.TryGetValue(NewsStoryCacheKey, out List<DustcloudNewsItem> items) ||
                 !await CompareCacheWithApiAsync(items.OrderByDescending(s => s.Score).Take(top)))
             {
+                _logger.LogInformation("No cache or cache outdated, refreshing");
                 await SetTopItemsCacheAsync();
                 _memoryCache.TryGetValue(NewsStoryCacheKey, out items);
             }
             
             var topItems = items.OrderByDescending(s => s.Score).Take(top);
+       
             return Ok(topItems);
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, ex.Message);
             return BadRequest(ex.Message);
         }
     }
