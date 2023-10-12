@@ -7,7 +7,7 @@ using Microsoft.Extensions.Caching.Memory;
 namespace Dustcloud.HackerNews.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/v1/[controller]")]
 public class HackerNewsController : ControllerBase
 {
     private readonly IHackerNewsService _hackerNewsService;
@@ -24,7 +24,8 @@ public class HackerNewsController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet(Name = "GetHackerNews")]
+    [HttpGet]
+    [Route("news/{top}")]
     public async Task<IActionResult> GetHackerNews(int top)
     {
         if (top > 500)
@@ -72,8 +73,6 @@ public class HackerNewsController : ControllerBase
         var dustcloudStories = hackerNewsStories.MapToDustcloudNewsItems();
         SetCache(NewsStoryCacheKey, dustcloudStories);
     }
-
-   
 
     private void SetCache(string cacheKey, object body, int slidingExpiration = 300)
     {
