@@ -4,7 +4,7 @@ using Moq;
 namespace Dustcloud.HackerNews.Repository.Tests;
 
 [TestClass]
-public class UnitTest1
+public class HackerNewsServiceTests
 {
     [TestMethod]
     public async Task WhenDataRequestedFromProxy_CheckDataReturnedCorrectly()
