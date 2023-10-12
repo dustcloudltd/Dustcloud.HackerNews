@@ -16,8 +16,8 @@ public class HackerNewsController : ControllerBase
     private const string NewsStoryCacheKey = "NewsStory";
 
     public HackerNewsController(IHackerNewsService hackerNewsService,
-        IMemoryCache memoryCache,
-        ILogger<HackerNewsController> logger)
+                                IMemoryCache memoryCache,
+                                ILogger<HackerNewsController> logger)
     {
         _hackerNewsService = hackerNewsService;
         _memoryCache = memoryCache;

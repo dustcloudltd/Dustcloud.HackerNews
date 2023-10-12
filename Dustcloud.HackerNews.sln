@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A36A0939
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dustcloud.HackerNews.Tests", "Dustcloud.HackerNews.Tests\Dustcloud.HackerNews.Tests.csproj", "{6D3A0A6B-754E-4E11-AA97-E74BEB2A0908}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dustcloud.HackerNews.Repository.Tests", "Dustcloud.HackerNews.Repository.Tests\Dustcloud.HackerNews.Repository.Tests.csproj", "{CD11984A-49C2-4269-A8B2-051AFFA27842}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dustcloud.HackerNews.Repository.Tests", "Dustcloud.HackerNews.Repository.Tests\Dustcloud.HackerNews.Repository.Tests.csproj", "{CD11984A-49C2-4269-A8B2-051AFFA27842}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
